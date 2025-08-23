@@ -1,0 +1,76 @@
+//Structure
+
+Root: top_decs += TopDec;
+
+TopDec: VarDec | FuncDef;
+
+//Math
+FourFunc:
+    a=AnyExp type=FourFuncType b=AnyExp
+;
+
+FourFuncType: "+"|"-"|"*"|"/";
+
+//Builtins
+
+AnyValue: STRING | NUMBER | BOOL | List;
+
+AnyExp: (value=AnyValue | "(" sub=SubExp ")" | "@" pointer=[AnyDec]);
+
+SubExp: FourFunc;
+
+AnyDec: VarDec | FuncDef | Builtin;
+
+AnyVar: VarDec | FuncArg | Builtin;
+
+AnyFunc: VarDec | FuncDef | FuncArg | Builtin;
+
+Builtin:
+    name=ID value=AnyValue
+;
+
+List:
+    "["
+        values*=AnyValue[","]
+    "]"
+;
+
+//Variables
+
+VarDec:
+    const?="const" type=VarType name=ID "=" value=AnyExp
+;
+
+VarType: "str" | "num" | "list" | "pointer";
+
+//Functions
+
+FuncDef:
+    "function" name=ID "(" args*=FuncArg[","] ")" "{"
+        steps += FuncStep
+    "}"
+;
+
+FuncArg:
+    type=VarType name=ID ("=" value=AnyValue)?
+;
+
+FuncStep: VarDecStep | SetStep | ReturnStep | CallStep;
+
+VarDecStep:
+    "local" VarDec
+;
+
+ReturnStep: "return" (value=AnyExp)?;
+
+CallStep:
+    "$" pointer=[AnyFunc] "(" args*=CallStepArg[","] ")"
+;
+
+CallStepArg:
+    (name=[FuncArg] "=")? AnyExp
+;
+
+SetStep:
+    "set" var=[AnyVar] "=" (value=AnyExp | "@" pointer=[AnyDec])
+;
