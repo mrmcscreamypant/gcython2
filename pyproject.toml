@@ -9,3 +9,9 @@ build-backend = "setuptools.build_meta"
 
 [tools.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
+
+[project.entry-points.textx_languages]
+gcscript = "gcscript:gcscript_lang"
+
+[project.entry-points.textx_generators]
+latex = "gcscript:gcscript_latex_generator"

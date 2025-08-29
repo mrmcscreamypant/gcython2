@@ -4,3 +4,4 @@ mregpy
 pytest
 coverage
 pytest-cov
+textx
