@@ -1,8 +1,7 @@
 from textual.app import ComposeResult
-from textual.widget import Widget
-from textual.widgets import TextArea
+from textual.widgets import TextArea, Static
 
-class Editor(Widget):
+class Editor(Static):
     """
     The main text editor
     """

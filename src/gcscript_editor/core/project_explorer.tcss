@@ -1,0 +1,5 @@
+ProjectExplorer {
+    dock: right;
+    width: 35;
+    height: 100%;
+}
