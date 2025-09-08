@@ -4,5 +4,7 @@ _build
 _static
 _templates
 *.egg-info
+*.log
 .coverage
 .pytest_cache
+.vscode
