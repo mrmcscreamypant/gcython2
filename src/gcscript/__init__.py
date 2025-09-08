@@ -4,10 +4,12 @@ A scripting language that compiles to Desmos.
 Made with TextX.
 """
 
-from textx import language, generator, metamodel_from_file
+from textx import language, generator, metamodel_from_str
 import importlib.resources
 
-import gcython
+import gcscript
+
+import sys
 
 @language('gcscript', '*.gc')
 def gcscript_lang():
@@ -15,9 +17,8 @@ def gcscript_lang():
     A scripting language that compiles to Desmos.
     """
     
-    filepath = importlib.resources.path(gcython,"gcscript.tx")
-    print(filepath)
-    mm = metamodel_from_file(filepath)
+    mm_str = importlib.resources.open_text(gcscript,"gcscript.tx")
+    mm = metamodel_from_str(mm_str.read())
     return mm
 
 @generator('gcscript', 'desmos')
@@ -27,3 +28,4 @@ def gcscript_latex_generator(metamodel, model, output_path, overwrite, debug, **
     """
     
     print(metamodel)
+    print(model)
