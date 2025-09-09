@@ -1,7 +1,22 @@
 // Structure
 
-Root: classes+=ClassDef;
+Root:
+    imports+=Import
+    classes+=ClassDef
+;
+
+Comment: /\/\/.*$/;
+
+Import:
+    'import' path+=ID+'.' name=ID
+;
+
+// Enums
+Scope: 'public' | 'private';
+
+// Classes
+ClassPointer: ClassDef | Import;
 
 ClassDef:
-    'class'
+    scope=Scope 'class' name=ID ('extends' extends+=[ClassPointer])?
 ;
