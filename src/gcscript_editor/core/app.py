@@ -1,37 +1,11 @@
 from textual.binding import Binding
-from textual.app import App, ComposeResult
+from textual.app import App, SystemCommand
 from textual.screen import Screen
-from textual.widgets import Header, Footer
-from textual.containers import Horizontal
+from typing import Iterable
 
-from .editor import Editor
-from .project_explorer import ProjectExplorer
+from gcscript_editor.core.editor_screen import EditorScreen
+from gcscript_editor.core.compile_screen import CompileScreen
 
-class EditorScreen(Screen):
-    editor: Editor = Editor()
-    explorer: ProjectExplorer = ProjectExplorer(id="project-explorer")
-    
-    def compose(self) -> ComposeResult:
-        yield Header(
-            show_clock=True,
-            name="GCScript Editor",
-            icon="📜"
-        )
-        yield Footer()
-        
-        with Horizontal():
-            yield self.explorer
-            yield self.editor
-
-class CompileScreen(Screen):
-    def compose(self) -> ComposeResult:
-        
-        yield Header(
-            show_clock=True,
-            name="GCScript Compiler",
-            icon="📜"
-        )
-        yield Footer()
 
 class GCScriptApp(App):
     """An editor for the GCScript Language"""
@@ -39,7 +13,6 @@ class GCScriptApp(App):
     
     BINDINGS = [
         Binding("ctrl+w","close_tab"),
-        Binding("ctrl+r","switch_to_compile","Switch to the compiler")
     ]
     
     SCREENS = {
@@ -49,6 +22,12 @@ class GCScriptApp(App):
     
     def on_mount(self) -> None:
         self.push_screen("editor")
+        
+    def get_system_commands(self, screen: Screen) -> Iterable[SystemCommand]:
+        yield from super().get_system_commands(screen)
+        self.log(screen.name)
+        if type(screen) == EditorScreen:
+            yield SystemCommand("Compile", "Compile the program", screen.action_switch_to_compile)
 
 if __name__ == "__main__":
     app = GCScriptApp()
