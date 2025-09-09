@@ -8,3 +8,4 @@ _templates
 .coverage
 .pytest_cache
 .vscode
+*.dot
