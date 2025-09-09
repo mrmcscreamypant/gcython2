@@ -8,10 +8,18 @@
 // @ts-check
 
 module.exports = grammar({
-  name: "gcscript",
+    name: "gcscript",
 
-  rules: {
-    // TODO: add the actual grammar rules
-    source_file: $ => "hello"
-  }
+    rules: {
+        source_file: $ => repeat($._base_args),
+
+        _base_args: $ => choice(
+            $.import
+        ),
+
+        import: $ => seq(
+            'import',
+            /\*./
+        ),
+    }
 });

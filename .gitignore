@@ -10,5 +10,3 @@ _templates
 .vscode
 *.dot
 node_modules
-package.json
-package-lock.json
