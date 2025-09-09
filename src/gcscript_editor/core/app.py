@@ -21,7 +21,7 @@ class GCScriptApp(App):
     }
     
     def on_mount(self) -> None:
-        self.push_screen("editor")
+        self.push_screen("compiler")
         
     def get_system_commands(self, screen: Screen) -> Iterable[SystemCommand]:
         yield from super().get_system_commands(screen)

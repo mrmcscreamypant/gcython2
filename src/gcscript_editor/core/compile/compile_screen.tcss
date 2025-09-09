@@ -1,0 +1,10 @@
+ProgressBar {
+    height: 1;
+    width: 100%;
+    align: center top;
+    dock:top;
+}
+
+Bar {
+    width: 50%;
+}
