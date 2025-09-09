@@ -19,7 +19,7 @@ module.exports = grammar({
 
         import: $ => seq(
             'import',
-            /\*./
+            /.*/
         ),
     }
 });

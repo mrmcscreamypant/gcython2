@@ -102,8 +102,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
   eof = lexer->eof(lexer);
   switch (state) {
     case 0:
-      if (eof) ADVANCE(7);
-      if (lookahead == '*') ADVANCE(6);
+      if (eof) ADVANCE(6);
       if (lookahead == 'i') ADVANCE(1);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') SKIP(0);
@@ -121,20 +120,26 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == 'r') ADVANCE(5);
       END_STATE();
     case 5:
-      if (lookahead == 't') ADVANCE(8);
+      if (lookahead == 't') ADVANCE(7);
       END_STATE();
     case 6:
-      if (lookahead != 0 &&
-          lookahead != '\n') ADVANCE(9);
-      END_STATE();
-    case 7:
       ACCEPT_TOKEN(ts_builtin_sym_end);
       END_STATE();
-    case 8:
+    case 7:
       ACCEPT_TOKEN(anon_sym_import);
+      END_STATE();
+    case 8:
+      ACCEPT_TOKEN(aux_sym_import_token1);
+      if (lookahead == '\t' ||
+          (0x0b <= lookahead && lookahead <= '\r') ||
+          lookahead == ' ') ADVANCE(8);
+      if (lookahead != 0 &&
+          (lookahead < '\t' || '\r' < lookahead)) ADVANCE(9);
       END_STATE();
     case 9:
       ACCEPT_TOKEN(aux_sym_import_token1);
+      if (lookahead != 0 &&
+          lookahead != '\n') ADVANCE(9);
       END_STATE();
     default:
       return false;
@@ -147,7 +152,7 @@ static const TSLexerMode ts_lex_modes[STATE_COUNT] = {
   [2] = {.lex_state = 0},
   [3] = {.lex_state = 0},
   [4] = {.lex_state = 0},
-  [5] = {.lex_state = 0},
+  [5] = {.lex_state = 8},
   [6] = {.lex_state = 0},
 };
 
@@ -155,7 +160,6 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
   [STATE(0)] = {
     [ts_builtin_sym_end] = ACTIONS(1),
     [anon_sym_import] = ACTIONS(1),
-    [aux_sym_import_token1] = ACTIONS(1),
   },
   [STATE(1)] = {
     [sym_source_file] = STATE(6),
