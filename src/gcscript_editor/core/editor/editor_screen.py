@@ -8,6 +8,8 @@ from textual.containers import Horizontal
 from textual.screen import Screen
 from textual.widgets import Footer, Header
 
+from gcscript_editor.core.compile.compile_screen import CompileScreen
+
 
 class EditorScreen(Screen):
     editor: Editor = Editor()
@@ -30,4 +32,4 @@ class EditorScreen(Screen):
             yield self.editor
 
     async def action_switch_to_compile(self):
-        await self.app.push_screen("compiler")
+        await self.app.push_screen(CompileScreen())
