@@ -1,4 +1,4 @@
-ProjectExplorer {
+#project-explorer {
     dock: right;
     width: 35;
     height: 100%;

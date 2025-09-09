@@ -1,8 +1,7 @@
-import pathlib
-import os.path
-
+from textual.binding import Binding
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer
+from textual.containers import Horizontal
 
 from .editor import Editor
 from .project_explorer import ProjectExplorer
@@ -12,7 +11,11 @@ class GCScriptApp(App):
     CSS_PATH = "project_explorer.tcss"
     
     editor: Editor = Editor()
-    explorer: ProjectExplorer = ProjectExplorer()
+    explorer: ProjectExplorer = ProjectExplorer(id="project-explorer")
+    
+    BINDINGS = [
+        Binding("ctrl+w","close_tab")
+    ]
     
     def compose(self) -> ComposeResult:
         yield Header(
@@ -22,9 +25,9 @@ class GCScriptApp(App):
         )
         yield Footer()
         
-        yield self.explorer
-        
-        yield self.editor
+        with Horizontal():
+            yield self.explorer
+            yield self.editor
     
 if __name__ == "__main__":
     app = GCScriptApp()
