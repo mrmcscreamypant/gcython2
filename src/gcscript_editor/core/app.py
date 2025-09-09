@@ -3,8 +3,8 @@ from textual.app import App, SystemCommand
 from textual.screen import Screen
 from typing import Iterable
 
-from gcscript_editor.core.editor_screen import EditorScreen
-from gcscript_editor.core.compile_screen import CompileScreen
+from gcscript_editor.core.editor.editor_screen import EditorScreen
+from gcscript_editor.core.compile.compile_screen import CompileScreen
 
 
 class GCScriptApp(App):

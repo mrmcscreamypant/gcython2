@@ -1,5 +1,5 @@
-from gcscript_editor.core.editor import Editor
-from gcscript_editor.core.project_explorer import ProjectExplorer
+from gcscript_editor.core.editor.editor import Editor
+from gcscript_editor.core.editor.project_explorer import ProjectExplorer
 
 
 from textual.app import ComposeResult
