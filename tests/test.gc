@@ -1,5 +1,8 @@
 import test02.TestClass
 
-public class App//my first class
+public class App { //my first class
+}
 
-private class MyClass extends App TestClass
+private class MyClass extends App TestClass {
+
+}

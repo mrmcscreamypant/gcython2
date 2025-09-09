@@ -9,3 +9,6 @@ _templates
 .pytest_cache
 .vscode
 *.dot
+node_modules
+package.json
+package-lock.json

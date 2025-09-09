@@ -18,5 +18,7 @@ Scope: 'public' | 'private';
 ClassPointer: ClassDef | Import;
 
 ClassDef:
-    scope=Scope 'class' name=ID ('extends' extends+=[ClassPointer])?
+    scope=Scope 'class' name=ID ('extends' extends+=[ClassPointer])? '{'
+
+    '}'
 ;
