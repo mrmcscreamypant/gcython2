@@ -1,0 +1,11 @@
+ProjectScreen {
+    align: center middle;
+    background: #000000d5;
+}
+
+#project-screen {
+    width: 75%;
+    height: 80%;
+    border: panel $secondary;
+    background: $panel;
+}

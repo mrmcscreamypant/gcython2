@@ -78,7 +78,5 @@ class Editor(Static):
         
     @on(TabbedContent.TabActivated)
     def switch_tab(self, event: TabbedContent.TabActivated):
-        print(event)
-        self.log(event)
         if event.tab.name:
             self.app.sub_title = event.tab.name

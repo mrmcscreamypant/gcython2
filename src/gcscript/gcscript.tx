@@ -14,9 +14,27 @@ Import:
 // Enums
 Scope: 'public' | 'private';
 
+// Interfaces
+Interface:
+    scope=Scope 'interface' name=ID '{'
+
+    '}'
+;
+
+InterfacePointer: Interface | Import;
+
 // Classes
 ClassPointer: ClassDef | Import;
 
 ClassDef:
-    scope=Scope 'class' name=ID ('extends' extends+=[ClassPointer])?
+    scope=Scope 'class' name=ID 
+    ('extends' '('extends+=[ClassPointer] ')')?
+    ('implements' '(' implements+=[InterfacePointer] ')')?
+    '{'
+        body*=Scope
+    '}'
+;
+
+ClassBody:
+    Scope
 ;

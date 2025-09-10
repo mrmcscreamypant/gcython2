@@ -16,7 +16,8 @@ class EditorScreen(Screen):
     explorer: ProjectExplorer = ProjectExplorer(id="project-explorer")
 
     BINDINGS = [
-        Binding("ctrl+r","switch_to_compile","Compile & run")
+        Binding("ctrl+r","switch_to_compile","Compile & run"),
+        Binding("ctrl+^+e","project_manifest","Project Manifest")
     ]
 
     def compose(self) -> ComposeResult:
@@ -33,3 +34,6 @@ class EditorScreen(Screen):
 
     async def action_switch_to_compile(self):
         await self.app.push_screen(CompileScreen())
+    
+    async def action_project_manifest(self):
+        await self.app.push_screen("project")
