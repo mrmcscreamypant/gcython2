@@ -3,6 +3,9 @@ print(__doc__)
 
 from gcython.expressions import Num
 from gcython.expressions.operations import Sqrt
-from latex2markdown import LaTeX2Markdown
+from pylatexenc.latex2text import latex2text
+from rich.markdown import Markdown
 
-print(LaTeX2Markdown(Num(1).__latex__()).to_markdown(), Num(0.2))
+latex = "\\begin{math}"+Sqrt(Num(0.2)).__latex__()+"\\end{math}"
+markdown = latex2text(latex)
+print(markdown)
