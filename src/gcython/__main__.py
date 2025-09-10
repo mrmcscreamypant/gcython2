@@ -1,10 +1,21 @@
 """gcython demo"""
 print(__doc__)
 
-from gcython.expressions import Num
-from gcython.expressions.operations import Sqrt
-from pylatexenc.latex2text import latex2text
+import rich
 
-latex = "\\begin{math}"+Sqrt(Num(0.2)).__latex__()+"\\end{math}"
-markdown = latex2text(latex)
+from gcython.expressions import Num
+from gcython.expressions.operations import Sqrt, FourFunc
+from gcython.expressions.operations.FourFunc import FourFuncOperation
+from pylatexenc.latex2text import LatexNodes2Text
+
+def gen_exp():
+    yield Sqrt(Num(2))
+    yield Num(0.2)
+
+exp = FourFunc(FourFuncOperation.ADD,*gen_exp())
+
+latex = exp.__latex__()
+markdown = LatexNodes2Text().latex_to_text(latex)
+rich.print(exp)
+print(latex)
 print(markdown)
