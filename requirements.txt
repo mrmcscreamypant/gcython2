@@ -8,3 +8,4 @@ pytest-cov
 textx
 pytoml>=0.1.21
 latex2markdown>=0.2.1
+strongtyping

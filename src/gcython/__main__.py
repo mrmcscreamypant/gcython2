@@ -1,6 +1,6 @@
 """gcython demo"""
 print(__doc__)
 
-from gcython.objects.Num import Num
+from gcython.objects import Num
 
-print(Num(1), Num(0.2))
+print(Num(1).__latex__(), Num(0.2))
