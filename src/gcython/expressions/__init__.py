@@ -1,4 +1,5 @@
 from .Num import Num
+from .Point import Point
 from gcython.core.IObject import IObject
 
 def convert_base_types(obj: object) -> IObject|None:
@@ -7,5 +8,6 @@ def convert_base_types(obj: object) -> IObject|None:
 
 __all__ = [
     "Num",
+    "Point",
     "convert_base_types"
 ]

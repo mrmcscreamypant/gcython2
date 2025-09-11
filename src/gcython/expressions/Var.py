@@ -5,10 +5,15 @@ from strongtyping.strong_typing import match_class_typing
 @match_class_typing
 @dataclass
 class Props(IProps):
-    value: int|float
+    name: str
+    value: IObject
 
-class Num(IObject[Props]):
+class Var(IObject[Props]):
     PropsClass = Props
+
+    @property
+    def name(self):
+        return self.props.name
 
     @property
     def value(self):
