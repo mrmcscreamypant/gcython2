@@ -13,6 +13,7 @@ def gen_exp():
         Num(0.2)
     )
     yield Num(-2)
+    yield Num(2.3)
 
 exp = FourFunc(FourFuncSymbol.DIV,*gen_exp())
 

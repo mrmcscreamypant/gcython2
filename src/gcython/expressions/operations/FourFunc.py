@@ -5,9 +5,9 @@ from enum import Enum
 
 def _div_exp(*c):
     c = [*c]
-    f = c.pop(0)
-    n = _div_exp(*c) if len(c) > 1 else c[0]
-    return "\\frac{"+f+"}{"+n+"}"
+    l = c.pop()
+    f = _div_exp(*c) if len(c) > 1 else c[0]
+    return "\\frac{"+f+"}{"+l+"}"
 
 class FourFuncSymbol(Enum):
     ADD = (lambda *c:"+".join(c),)
