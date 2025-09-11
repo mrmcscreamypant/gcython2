@@ -9,3 +9,4 @@ textx
 pytoml>=0.1.21
 pylatexenc>=2.10
 strongtyping>=3.11
+bottle>=0.13.4
