@@ -32,8 +32,8 @@ from typing import Generator, Any
 from rich import print
 
 class App(VM):
-    a = Pointer("a")
-    b = Pointer("b")
+    a = Pointer("a", Num(1))
+    b = Pointer("b", Num(0))
 
     @VM.action
     def foo(self) -> Generator[ActionList|Action, Any, None]:

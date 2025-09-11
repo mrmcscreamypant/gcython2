@@ -6,6 +6,7 @@ from strongtyping.strong_typing import match_class_typing
 @dataclass
 class PointerProps(IProps):
     name: str
+    inital: IObject|None = None
 
 @dataclass
 class Pointer(IObject[PointerProps]):
@@ -25,6 +26,10 @@ class Pointer(IObject[PointerProps]):
         if len(name) > 1:
             name = name[0]+"_{"+name[1:]+"}"
         return name
+
+    @property
+    def inital(self) -> IObject|None:
+        return self.props.inital
 
     def __latex__(self) -> str:
         return str(self.name)

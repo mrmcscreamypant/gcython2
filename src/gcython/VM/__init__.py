@@ -1,7 +1,10 @@
-from .VM import VM
+from .VM import VM, CompiledVM
 from .Var import VMVar
+from .Pointer import VMPointer
 
 __all__ = [
     "VM",
-    "VMVar"
+    "CompiledVM",
+    "VMVar",
+    "VMPointer",
 ]

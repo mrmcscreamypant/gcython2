@@ -1,3 +1,27 @@
 html, body {
     margin: 0px;
 }
+
+#calculator {
+    display: flex;
+    width:100vw;
+    height:100vh;
+}
+
+@keyframes loading-fader {
+    from {
+        opacity: 1;
+    } 50% {
+        opacity: 0.2;
+    } to {
+        opacity: 1;
+    }
+}
+
+#loading {
+    margin: auto;
+
+    font: 30px monospace;
+
+    animation: loading-fader 1.5s linear 0s infinite forwards;
+}
