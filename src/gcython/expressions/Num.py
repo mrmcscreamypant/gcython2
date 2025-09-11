@@ -16,3 +16,6 @@ class Num(IObject[Props]):
 
     def __latex__(self) -> str:
         return str(self.value)
+
+    def __enter__(self):
+        pass
