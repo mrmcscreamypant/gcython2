@@ -4,8 +4,12 @@ from textual.screen import Screen
 from textual import work
 from textual.widgets import Footer, Header, RichLog, ProgressBar
 from textual.containers import VerticalGroup
+from gcython_devserver import GCDevserver
+from gcython.__main__ import App
 import asyncio as aio
 
+class Devserver(GCDevserver):
+    pass
 
 class CompileScreen(Screen):
     CSS_PATH = "compile_screen.tcss"
@@ -18,11 +22,11 @@ class CompileScreen(Screen):
         
     @work
     async def run(self):
-        self.logger.write("foo")
-        for _ in range(100):
-            self.get_child_by_type(VerticalGroup).get_child_by_type(ProgressBar).advance(1)
-            await aio.sleep(0.1)
-    
+        Devserver(App().compose()).run(
+            host="0.0.0.0",
+            server="cheroot"
+        )   
+
     def __init__(self,*args, **kwargs):
         super().__init__(*args,**kwargs)
         self.logger = RichLog()
