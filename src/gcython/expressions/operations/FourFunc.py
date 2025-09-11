@@ -17,7 +17,7 @@ class FourFuncSymbol(Enum):
 
 @match_class_typing
 @dataclass
-class Props(IProps):
+class FourFuncProps(IProps):
     operation: FourFuncSymbol
     children: tuple[IObject,...]
 
@@ -26,8 +26,8 @@ class Props(IProps):
         self.children = children
 
 
-class FourFunc(IObject[Props]):
-    PropsClass = Props
+class FourFunc(IObject[FourFuncProps]):
+    PropsClass = FourFuncProps
 
     @property
     def contents(self):

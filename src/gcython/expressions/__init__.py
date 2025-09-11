@@ -1,5 +1,8 @@
 from .Num import Num
 from .Point import Point
+from .Var import Var
+from .Action import Action, ActionList
+from .Pointer import Pointer
 from gcython.core.IObject import IObject
 
 def convert_base_types(obj: object) -> IObject|None:
@@ -9,5 +12,9 @@ def convert_base_types(obj: object) -> IObject|None:
 __all__ = [
     "Num",
     "Point",
-    "convert_base_types"
+    "Var",
+    "Action",
+    "ActionList",
+    "Pointer",
+    "convert_base_types",
 ]

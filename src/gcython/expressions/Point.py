@@ -6,7 +6,7 @@ from . import Num
 
 @match_class_typing
 @dataclass
-class Props(IProps):
+class PointProps(IProps):
     x: Num
     y: Num
     z: Num|None = None
@@ -14,8 +14,8 @@ class Props(IProps):
 class PointDimensionError(Exception):
     pass
 
-class Point(IObject[Props]):
-    PropsClass = Props
+class Point(IObject[PointProps]):
+    PropsClass = PointProps
 
     @property
     def x(self) -> Num:
@@ -39,4 +39,4 @@ class Point(IObject[Props]):
             return (self.x,self.y)
 
     def __latex__(self) -> str:
-        return "("+",".join([value.__latex__() for value in self.tuple])
+        return "\\left("+",".join([value.__latex__() for value in self.tuple])+"\\right)"

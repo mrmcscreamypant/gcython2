@@ -26,12 +26,31 @@ print(unicode)
 """
 
 from gcython.VM import VM, VMVar
-from gcython.expressions import Num
+from gcython.expressions import Num, Action, Pointer, ActionList
+from gcython.expressions.operations import FourFunc, FourFuncSymbol
+from typing import Generator, Any
+from rich import print
 
 class App(VM):
-    GLOBAL_VARS = [
-        VMVar("a",Num(2))
-    ]
+    a = Pointer("a")
+    b = Pointer("b")
+
+    @VM.action
+    def foo(self) -> Generator[ActionList|Action, Any, None]:
+        yield Action(self.a,FourFunc(
+            FourFuncSymbol.DIV,
+            self.a,
+            Num(2)
+        ))
+        yield Action(self.b,FourFunc(
+            FourFuncSymbol.ADD,
+            self.b,
+            self.a
+        ))
+    
+    @property
+    def TICKER(self):
+        return ActionList(self.foo)
 
 if __name__ == "__main__":
     app = App()

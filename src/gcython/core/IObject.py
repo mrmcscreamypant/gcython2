@@ -22,7 +22,7 @@ class IObject(ABC, Generic[P]):
             sys.exit(1)
 
     def __repr__(self) -> str:
-        return repr(self.props)
+        return repr(self.props)#self.__latex__()
 
     @abstractmethod
     def __latex__(self) -> str:
