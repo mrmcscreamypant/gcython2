@@ -18,6 +18,6 @@ exp = FourFunc(FourFuncSymbol.DIV,*gen_exp())
 
 latex = exp.__latex__()
 markdown = LatexNodes2Text().latex_to_text(latex)
-#rich.print(exp)
+rich.print(exp)
 print(latex)
 print(markdown)

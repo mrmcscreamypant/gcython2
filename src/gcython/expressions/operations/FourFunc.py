@@ -4,9 +4,7 @@ from strongtyping.strong_typing import match_class_typing
 from enum import Enum
 
 def _div_exp(*c):
-    print(c)
     c = [*c]
-    print(c)
     f = c.pop(0)
     n = _div_exp(*c) if len(c) > 1 else c[0]
     return "\\frac{"+f+"}{"+n+"}"
