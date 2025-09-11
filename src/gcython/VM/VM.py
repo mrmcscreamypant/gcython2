@@ -41,14 +41,17 @@ class VM(ABC):
         self._locate_marked_actions()
     
     def _locate_marked_actions(self):
-        for attr in self.__class__.__dict__.values():
+        for i,attr in enumerate(self.__class__.__dict__.values()):
+            key = [*self.__class__.__dict__.keys()][i]
+
             if hasattr(attr, "is_vm_action"):
                 pointer = VMMethod(self,attr)
                 self.GLOBAL_VARS.append(pointer)
-                self.__dict__[attr.__name__] = Pointer(self.methodname(self,attr))
+                self.__dict__[key] = Pointer(self.methodname(self,attr))
             
             if isinstance(attr, Pointer):
-                self.GLOBAL_VARS.append(VMVar(attr.name, attr.inital))
+                self.__dict__[key] = Pointer(self.attrname(self,attr))
+                self.GLOBAL_VARS.append(VMVar(self.attrname(self,attr), attr.inital))
 
     @classmethod
     def action(cls, func:Any):
@@ -58,6 +61,10 @@ class VM(ABC):
     @staticmethod
     def methodname(obj,method):
         return obj.__class__.__name__+"M"+method.__name__
+    
+    @staticmethod
+    def attrname(obj,attr):
+        return obj.__class__.__name__+"A"+attr.__name__
 
     def compose(self, minify=True, obfiscate=False) -> CompiledVM:
         """Compile the VM to latex.
