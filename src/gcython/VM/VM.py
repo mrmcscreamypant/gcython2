@@ -1,7 +1,7 @@
 from .Var import VMVar
-from .Pointer import VMPointer
+from .VMClass import VMClass
 from gcython.core import IObject
-from gcython.expressions import ActionList, Pointer, Action, Num
+from gcython.expressions import ActionList, Pointer, Action
 from dataclasses import dataclass
 from .IVMObject import IVMObject
 from pylatexenc.latex2text import LatexNodes2Text
@@ -30,6 +30,7 @@ class CompiledVM:
 
 class VM(ABC):
     GLOBAL_VARS: list[IVMObject] = []
+    CLASSES: list[VMClass] = []
 
     @property
     @abstractmethod
@@ -38,7 +39,6 @@ class VM(ABC):
 
     def __init__(self):
         super().__init__()
-        self._locate_marked_actions()
     
     def _locate_marked_actions(self):
         for i,attr in enumerate(self.__class__.__dict__.values()):
@@ -73,10 +73,15 @@ class VM(ABC):
         minify -- compress the compiled code. (default True)
         obfiscate -- replace variable names with shorter names (default False)
         """
-        expressions: list[IObject] = []
+        self._locate_marked_actions()
+        expressions: list[IObject[Any]] = []
 
         for var in self.GLOBAL_VARS:
-            expressions.append(var.__compose__())
+            expressions += var.__compose__()
+        
+        for cls in self.CLASSES:
+            cls.__name__ = self.__class__.__name__ + "C" + cls.__name__
+            expressions += cls.__compose__()
 
         ticker = None
         if self.TICKER:
@@ -94,7 +99,7 @@ class VMMethod(IVMObject):
     vm: VM
     method: Any
 
-    def __compose__(self) -> IObject:
+    def __compose__(self) -> list[IObject[Any]]:
         return VMVar(
             self.vm.methodname(self.vm, self.method),
             ActionList(*[

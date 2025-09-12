@@ -1,21 +1,27 @@
 from gcython.expressions import Pointer, ActionList
 from gcython.core import IObject
+from gcython.expressions import Num
 from .Var import VMVar
 from .IVMObject import IVMObject
 from dataclasses import dataclass
 
 from typing import Any
 
-class VMClass():
+class VMClass(IVMObject):
+    __name__: str
     VARS: list[IVMObject] = []
+    compiled: bool = False
 
-    def __init__(self):
+    def __init__(self, name:str):
         super().__init__()
-        self._locate_marked_actions()
+        self.__name__ = self.__class__.__name__
+        self.name = name
     
     def _locate_marked_actions(self):
-        for i,attr in enumerate(self.__class__.__dict__.values()):
-            key = [*self.__class__.__dict__.keys()][i]
+        static = (*self.__dict__.values(),)
+        static_keys = (*self.__dict__.keys(),)
+        for i,attr in enumerate(static):
+            key = static_keys[i]
 
             if hasattr(attr, "is_vm_action"):
                 pointer = VMClassMethod(self,attr)
@@ -33,18 +39,28 @@ class VMClass():
 
     @staticmethod
     def methodname(obj,method):
-        return obj.__class__.__name__+"M"+method.__name__
+        return obj.__name__+"M"+method.__name__
     
     @staticmethod
     def attrname(obj,attr):
-        return obj.__class__.__name__+"A"+attr.__name__
+        return obj.__name__+"A"+attr.__name__
+
+    def __compose__(self) -> list[IObject[Any]]:
+        if self.compiled:
+            raise ReferenceError(f"Tried to recompile {self}")
+        self._locate_marked_actions()
+        expressions: list[IObject[Any]] = []
+        for var in self.VARS:
+            expressions += var.__compose__()
+        self.compiled = True
+        return expressions
 
 @dataclass
 class VMClassMethod(IVMObject):
     cls: VMClass
     method: Any
 
-    def __compose__(self) -> IObject:
+    def __compose__(self) -> list[IObject[Any]]:
         return VMVar(
             self.cls.methodname(self.cls, self.method),
             ActionList(*[

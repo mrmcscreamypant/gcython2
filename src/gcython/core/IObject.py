@@ -19,7 +19,7 @@ class IObject(ABC, Generic[P]):
         try:
             self.props = self.PropsClass(*children)
         except TypeMisMatch as e:
-            sys.exit(1)
+            raise e#sys.exit(1)
 
     def __repr__(self) -> str:
         return repr(self.props)#self.__latex__()

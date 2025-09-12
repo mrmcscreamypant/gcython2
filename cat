@@ -1,0 +1,6 @@
+Starting compile...
+Injecting class Foo into <gcscript.compiler.GCScriptVM object at 0x7fb44d9650>
+{'__name__': 'Foo', 'name': 'Foo', 'foo': Pointer()}
+Injecting class MyClass into <gcscript.compiler.GCScriptVM object at 0x7fb44d9650>
+{'__name__': 'MyClass', 'name': 'MyClass', 'x': Pointer()}
+CompiledVM(expressions=['G_{CScriptVMCFooAf_{oo}}=2', 'G_{CScriptVMCFooAf_{oo}}=2', 'G_{CScriptVMCMyClassAx}=0'], ticker=ActionListProps(children=()))

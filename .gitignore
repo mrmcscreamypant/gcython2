@@ -9,3 +9,4 @@ _templates
 .pytest_cache
 .vscode
 *.dot
+.VSCodeCounter

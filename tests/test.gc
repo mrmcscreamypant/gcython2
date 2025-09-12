@@ -1,11 +1,17 @@
-import test02.TestClass
-import test02.IInterface
+
+
+type String
+type Function
 
 //my first class
-public class App {
-    
+public class Foo {
+    private val Number foo = 2
+
+    public def Number fee() {}
 }
 
-private class MyClass extends (App TestClass) implements (IInterface) {
-
+private class MyClass extends (Foo) {
+    private val Number x = 0
+    //private val Number parent = Foo.foo
+    private val Number update = Foo.fee()
 }

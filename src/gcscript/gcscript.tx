@@ -1,14 +1,55 @@
 // Structure
 
 Root:
-    imports+=Import
-    classes+=ClassDef
+    imports*=Import
+    type_decs*=TypeDec
+    classes+=Class
 ;
 
 Comment: /\/\/.*$/;
 
 Import:
     'import' path+=ID+'.' name=ID
+;
+
+Type:
+    Interface | ClassPointer | TypeDec
+;
+
+TypeDec:
+    'type' name=BuiltinType
+;
+
+BuiltinType:
+    "String" | "Number" | "Function"
+;
+
+// Expressions
+
+Expression:
+    MathExp | StringExp | Constructor | MethodCall | AttrPointer
+;
+
+AttrPointer:
+    ref=[ClassAttr:FQN|classes.attrs*]
+;
+
+MethodCall:
+    ref=[ClassMethod:FQN|classes.methods*] '(' args*=Expression ')'
+;
+
+Constructor:
+    cls=[ClassPointer] '(' args*=Expression ')'
+;
+
+FQN: ID('.' ID)*;
+
+StringExp:
+    STRING
+;
+
+MathExp:
+    NUMBER
 ;
 
 // Enums
@@ -24,18 +65,27 @@ Interface:
 InterfacePointer: Interface | Import;
 
 // Classes
-ClassPointer: ClassDef | Import;
+ClassPointer: Class | Import;
 
-ClassDef:
+Class:
     scope=Scope instanced?='instanced'
     'class' name=ID 
     ('extends' '('extends+=[ClassPointer] ')')?
     ('implements' '(' implements+=[InterfacePointer] ')')?
     '{'
-        body*=Scope
+        attrs*=ClassAttr
+        methods*=ClassMethod
     '}'
 ;
 
-ClassBody:
-    Scope
+ClassAttr:
+    scope=Scope 'val' type=[Type] name=ID ('=' value=Expression)?
+;
+
+ClassMethod:
+    scope=Scope 'def' static?='static' return_type=[Type] name=ID
+    '(' attrs *= Scope ')'
+    '{'
+
+    '}'
 ;
