@@ -27,7 +27,8 @@ InterfacePointer: Interface | Import;
 ClassPointer: ClassDef | Import;
 
 ClassDef:
-    scope=Scope 'class' name=ID 
+    scope=Scope instanced?='instanced'
+    'class' name=ID 
     ('extends' '('extends+=[ClassPointer] ')')?
     ('implements' '(' implements+=[InterfacePointer] ')')?
     '{'
