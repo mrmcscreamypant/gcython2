@@ -25,7 +25,7 @@ class CompileScreen(Screen):
         Devserver(App().compose()).run(
             host="0.0.0.0",
             server="cheroot"
-        )   
+        )
 
     def __init__(self,*args, **kwargs):
         super().__init__(*args,**kwargs)
