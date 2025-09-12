@@ -5,8 +5,8 @@ from textual import work
 from textual.widgets import Footer, Header, RichLog, ProgressBar
 from textual.containers import VerticalGroup
 from gcython_devserver import GCDevserver
-from gcython.__main__ import App
-import asyncio as aio
+from gcscript import gcscript_latex_generator
+from gcython.VM import VM
 
 class Devserver(GCDevserver):
     pass

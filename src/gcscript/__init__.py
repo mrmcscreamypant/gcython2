@@ -9,7 +9,7 @@ import importlib.resources
 
 import gcscript
 
-import sys
+from .compiler import Compiler
 
 @language('gcscript', '*.gc')
 def gcscript_lang():
@@ -27,5 +27,4 @@ def gcscript_latex_generator(metamodel, model, output_path, overwrite, debug, **
     Compile gcscript to latex.
     """
     
-    print(metamodel)
-    print(model)
+    Compiler(model)
